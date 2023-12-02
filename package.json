@@ -1,0 +1,19 @@
+{
+  "name": "aoc2023",
+  "version": "1.0.0",
+  "description": "For every day this year imma try to do it in: - a python oneliner - one other language such as rust, cpp, go, typescript etc.",
+  "main": "index.js",
+  "dependencies": {
+    "fs": "^0.0.1-security",
+    "typescript": "^5.3.2"
+  },
+  "devDependencies": {
+    "@types/node": "^20.10.2"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
