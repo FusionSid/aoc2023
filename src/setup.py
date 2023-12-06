@@ -40,6 +40,9 @@ def main(day: str):
 
     Path(path.join(DIRECTORY, "test.txt")).touch()  # test input file
 
+    loader_path = path.join(TEMPLATE_DIR, "loader.py")
+    shutil.copyfile(loader_path, path.join(DIRECTORY, "loader.py"))
+
     oneliner_path = path.join(TEMPLATE_DIR, "oneliner.py")
     for oneliner in ["p1.oneline.py", "p2.oneline.py"]:
         shutil.copyfile(oneliner_path, path.join(DIRECTORY, oneliner))
