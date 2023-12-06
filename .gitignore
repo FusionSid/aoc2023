@@ -162,3 +162,5 @@ cython_debug/
 node_modules/
 *orig.py
 *.js
+loader.py
+!src/templates/loader.py
