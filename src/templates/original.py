@@ -1,4 +1,5 @@
 from rich import print
+
 from loader import load_input
 
 
