@@ -1,6 +1,6 @@
+import shutil
 import webbrowser
 from pathlib import Path
-from typing import Final
 from os import path, environ, mkdir
 
 import typer
@@ -10,7 +10,7 @@ from rich import print
 
 
 SRC_DIR = path.dirname(__file__)
-ONELINE_TEMPLATE: Final = r'[(importlib := __import__("importlib")), (sys := importlib.import_module("sys")), (os := __import__("os", globals(), locals(), ["path"], 0)), (path := os.path), (rich := __import__("rich", globals(), locals(), ["print"], 0)), (print := rich.print), (solve := (lambda data: print("Answer:", None))), [(use_test := (len(sys.argv) == 2 and sys.argv[-1] == "--test")), (input_path := path.join(path.dirname(__file__), "input.txt" if not use_test else "test.txt")), (data := open(input_path).read().split("\n")), solve(data)] if __name__ == "__main__" else ...]'  # noqa
+TEMPLATE_DIR = path.join(SRC_DIR, "templates/")
 
 
 def save_input(day: str, dir_path: str) -> None:
@@ -38,18 +38,17 @@ def main(day: str):
     save_input(day, DIRECTORY)
     print("[b green]Input Data Saved!")
 
-    additional_files = ["p1.oneline.py", "p2.oneline.py", "test.txt"]
-    for file in additional_files:
-        fp = path.join(DIRECTORY, file)
+    Path(path.join(DIRECTORY, "test.txt")).touch()  # test input file
 
-        if "oneline" in file:
-            with open(fp, "w") as f:
-                f.write(ONELINE_TEMPLATE)
-            continue
+    oneliner_path = path.join(TEMPLATE_DIR, "oneliner.py")
+    for oneliner in ["p1.oneline.py", "p2.oneline.py"]:
+        shutil.copyfile(oneliner_path, path.join(DIRECTORY, oneliner))
 
-        filepath = Path(fp)
-        filepath.touch()
-    print("[b green]Additional Files Created!")
+    original_path = path.join(TEMPLATE_DIR, "original.py")
+    for original in ["p1.orig.py", "p2.orig.py"]:
+        shutil.copyfile(original_path, path.join(DIRECTORY, original))
+
+    print("[b green]All Files Created!")
 
     print("[b green]Setup Complete! Opening Challenge In Browser...")
     webbrowser.open(f"https://adventofcode.com/2023/day/{day}")
