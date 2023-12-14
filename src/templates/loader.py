@@ -30,7 +30,7 @@ def time_call(
     print(f"{name}: {stop - start}")
 
 
-def load_input(file: str, solve: solve_function_t) -> None:
+def load_input(file: str, solve: solve_function_t, spl="\n") -> None:
     use_test = "--test" in argv
     use_main = not use_test
     use_test |= "--both" in argv
@@ -42,10 +42,10 @@ def load_input(file: str, solve: solve_function_t) -> None:
 
     if use_test:
         with open(test_input_path) as f:
-            data = f.read().split("\n")
+            data = f.read().split(spl)
             time_call(solve, data, time_calls, "TEST")
 
     if use_main:
         with open(main_input_path) as f:
-            data = f.read().split("\n")
+            data = f.read().split(spl)
             time_call(solve, data, time_calls, "MAIN")
